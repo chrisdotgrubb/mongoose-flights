@@ -4,25 +4,23 @@
 	<form action="/flights" method="POST">
 		<label>Airline
 			<select name="airline">
-				<option value="American">American</option>
-				<option value="Southwest">Southwest</option>
-				<option value="United">United</option>
+				<% airlineChoices.forEach(choice => { %>
+					<option value="<%= choice %>"><%= choice %></option>
+				<% }); %>
 			</select>
 		</label><br>
 		<label>Airport
 			<select name="airport">
-				<option value="AUS">AUS</option>
-				<option value="DFW">DFW</option>
-				<option value="DEN">DEN</option>
-				<option value="LAX">LAX</option>
-				<option value="SAN">SAN</option>
+				<% airportChoices.forEach(choice => { %>
+					<option value="<%= choice %>"><%= choice %></option>
+				<% }); %>
 			</select>
 		</label><br>
 		<label>Flight #
 			<input type="text" name="flightNo">
 		</label><br>
 		<label>Departing date
-			<input type="date" name="departs">
+			<input type="datetime-local" name="departs" value="<%= defaultDeparture %>">
 		</label><br>
 		<button type="submit">Book Flight</button>
 	</form>

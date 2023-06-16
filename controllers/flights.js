@@ -18,15 +18,24 @@ async function index(req, res) {
 }
 
 function newFlight(req, res) {
-	res.render('flights/new', { errorMsg: '' });
+	const airlineChoices = Flight.schema.path('airline').enumValues;
+	const airportChoices = Flight.schema.path('airport').enumValues;
+
+	// default is one year from today formatted for html: 2023-06-16T20:22:49
+	const today = new Date()
+	today.setFullYear(today.getFullYear() + 1)
+	defaultDeparture = today.toISOString().slice(0, 19);
+	
+	res.render('flights/new', {
+		errorMsg: '',
+		airlineChoices,
+		airportChoices,
+		today,
+		defaultDeparture,
+	});
 }
 
 async function create(req, res) {
-	console.log(req.body);
-	// req.body.flightNo = parseInt(req.body.flightNo);
-	
-	
-	// delete keys that have no value to force defaults
 	for (const key in req.body) {
 		if (req.body[key] === '') delete req.body[key];
 	};
@@ -35,6 +44,12 @@ async function create(req, res) {
 		await Flight.create(req.body);
 		res.redirect('/flights');
 	} catch (err) {
-		res.render('flights/new', {errorMsg: err.message});
+		const airlineChoices = Flight.schema.path('airline').enumValues;
+		const airportChoices = Flight.schema.path('airport').enumValues;
+		res.render('flights/new', {
+			errorMsg: err.message,
+			airlineChoices,
+			airportChoices,
+		});
 	};
 }
