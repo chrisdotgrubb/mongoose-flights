@@ -25,4 +25,8 @@ const flightSchema = new Schema({
 			return today;
 		},
 	},
-})
+}, {
+	timestamps: true,
+});
+
+module.exports = mongoose.model('Flight', flightSchema);
