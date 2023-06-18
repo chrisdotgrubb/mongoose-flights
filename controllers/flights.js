@@ -1,9 +1,11 @@
+const { default: mongoose } = require('mongoose');
 const Flight = require('../models/flight');
 
 module.exports = {
 	index,
+	show,
 	new: newFlight,
-	create
+	create,
 }
 
 async function index(req, res) {
@@ -13,7 +15,23 @@ async function index(req, res) {
 			flights,
 		});
 	} catch (err) {
-		res.render('/', { errorMsg: err.message });
+		res.render('error', {
+			error: err,
+			message: err.message,});
+	};
+}
+
+async function show(req, res) {
+	try {
+		const id = req.params.id;
+		const flight = await Flight.findById(id);
+		res.render('flights/show', {
+			flight,
+		});
+	} catch (err) {
+		res.render('error', {
+			error: err,
+			message: err.message,});
 	};
 }
 
