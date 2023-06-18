@@ -1,0 +1,29 @@
+<%- include('../partials/header') %>
+
+	<h2>Update Flight</h2>
+	<h3><%= flight.flightNo %></h3>
+	<form action="/flights/<%= flight.id %>?_method=PUT" method="POST">
+		<label>Airline
+			<select name="airline">
+				<% airlineChoices.forEach(choice => { %>
+					<option value="<%= choice %>" <%= (flight.airline === choice) ? 'selected' : ''%>><%= choice %></option>
+				<% }); %>
+			</select>
+		</label><br>
+		<label>Airport
+			<select name="airport">
+				<% airportChoices.forEach(choice => { %>
+					<option value="<%= choice %>" <%= (flight.airport === choice) ? 'selected' : ''%>><%= choice %></option>
+				<% }); %>
+			</select>
+		</label><br>
+		<label>Departing date
+			<input type="datetime-local" name="departs"  value="<%= departure %>">
+		</label><br>
+		<button type="submit">Update Flight</button>
+	</form>
+	<p>
+		<%= errorMsg %>
+	</p>
+
+<%- include('../partials/footer') %>

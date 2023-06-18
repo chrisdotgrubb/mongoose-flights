@@ -6,6 +6,8 @@ module.exports = {
 	show,
 	new: newFlight,
 	create,
+	edit,
+	update,
 }
 
 async function index(req, res) {
@@ -25,6 +27,8 @@ async function show(req, res) {
 	try {
 		const id = req.params.id;
 		const flight = await Flight.findById(id);
+		console.log(flight.airline);
+		console.log(flight.airport);
 		res.render('flights/show', {
 			flight,
 		});
@@ -40,7 +44,7 @@ function newFlight(req, res) {
 	const airportChoices = Flight.schema.path('airport').enumValues;
 
 	// default is one year from today formatted for html: 2023-06-16T20:22:49
-	const today = new Date()
+	const today = new Date();
 	today.setFullYear(today.getFullYear() + 1)
 	defaultDeparture = today.toISOString().slice(0, 19);
 	
@@ -69,5 +73,39 @@ async function create(req, res) {
 			airlineChoices,
 			airportChoices,
 		});
+	};
+}
+
+async function edit(req, res) {
+	try {
+		const id = req.params.id;
+		const flight = await Flight.findById(id);
+		const airlineChoices = Flight.schema.path('airline').enumValues;
+		const airportChoices = Flight.schema.path('airport').enumValues;
+
+		departure = flight.departs.toISOString().slice(0, 19);
+		res.render('flights/edit', {
+			errorMsg: '',
+			flight,
+			airlineChoices,
+			airportChoices,
+			departure,
+		});
+	} catch (err) {
+		res.render('error', {
+			error: err,
+			message: err.message,});
+	};
+}
+
+async function update(req, res) {
+	try {
+		const id = req.params.id;
+		await Flight.findByIdAndUpdate(id, req.body);
+		res.redirect(`/flights/${id}`);
+	} catch (err) {
+		res.render('error', {
+			error: err,
+			message: err.message,});
 	};
 }

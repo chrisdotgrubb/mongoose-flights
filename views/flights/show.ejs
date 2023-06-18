@@ -16,7 +16,7 @@
 					<%= flight.airline %>
 				</td>
 				<td>
-					<%= flight.aiport %>
+					<%= flight.airport %>
 				</td>
 				<td>
 					<%= flight.flightNo %>
@@ -29,5 +29,6 @@
 				</td>
 			</tr>
 		</tbody>
+		<a href="/flights/<%= flight.id %>/edit">edit</a>
 	</table>
 <%- include('../partials/footer') %>
