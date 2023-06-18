@@ -8,6 +8,7 @@ module.exports = {
 	create,
 	edit,
 	update,
+	delete: deleteFlight,
 }
 
 async function index(req, res) {
@@ -109,3 +110,16 @@ async function update(req, res) {
 			message: err.message,});
 	};
 }
+
+async function deleteFlight(req, res) {
+	try {
+		const id = req.params.id;
+		await Flight.findByIdAndDelete(id);
+		res.redirect(`/flights`);
+	} catch (err) {
+		res.render('error', {
+			error: err,
+			message: err.message,});
+	};
+}
+

@@ -29,6 +29,7 @@
 				</td>
 			</tr>
 		</tbody>
-		<a href="/flights/<%= flight.id %>/edit">edit</a>
+		<form action="/flights/<%= flight.id %>/edit"><button type="submit">edit</button></form>
+		<form action="/flights/<%= flight.id %>?_method=DELETE" method="POST"><button type="submit">delete</button></form>
 	</table>
 <%- include('../partials/footer') %>
