@@ -28,8 +28,7 @@ async function show(req, res) {
 	try {
 		const id = req.params.id;
 		const flight = await Flight.findById(id);
-		console.log(flight.airline);
-		console.log(flight.airport);
+		flight.
 		res.render('flights/show', {
 			flight,
 		});

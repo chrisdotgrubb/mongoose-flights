@@ -9,6 +9,7 @@ require('./config/database');
 
 var indexRouter = require('./routes/index');
 var flightsRouter = require('./routes/flights');
+var destinationsRouter = require('./routes/destinations');
 var methodOverride = require('method-override');
 
 var app = express();
@@ -24,6 +25,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(methodOverride('_method'));
 
+app.use('/', destinationsRouter);
 app.use('/', indexRouter);
 app.use('/flights', flightsRouter);
 

@@ -1,0 +1,20 @@
+const { default: mongoose } = require('mongoose');
+const Flight = require('../models/flight');
+
+module.exports = {
+	index,
+	create,
+	delete: deleteDestination,
+}
+
+async function index(req, res) {
+
+}
+
+async function create(req, res) {
+	
+}
+
+async function deleteDestination(req, res) {
+	
+}
