@@ -81,6 +81,7 @@ async function edit(req, res) {
 		const flight = await Flight.findById(id);
 		const airlineChoices = Flight.schema.path('airline').enumValues;
 		const airportChoices = Flight.schema.path('airport').enumValues;
+		const destinationChoices = Flight.schema.path('destinations').schema.path('airport').enumValues;
 
 		departure = flight.departs.toISOString().slice(0, 19);
 		res.render('flights/edit', {
@@ -89,6 +90,7 @@ async function edit(req, res) {
 			airlineChoices,
 			airportChoices,
 			departure,
+			destinationChoices,
 		});
 	} catch (err) {
 		res.render('error', {
