@@ -24,8 +24,18 @@
 	</form>
 	<h2>destinations</h2>
 
-	<% flight.destinations.forEach(d => { %>
-		<h2><%= d.airport %></h2>
+	<% flight.destinations.forEach((d , i) => { %>
+		<div>
+			<h2>
+				<%= d.airport %>
+				<% if (i === flight.destinations.length - 1) { %>
+					<form action="/destinations/<%= d.id %>?_method=DELETE" method="POST">
+						<input type="text" name="flightId" value="<%= flight.id %>">
+						<button type="submit">delete</button>
+					</form>
+				<% } %>
+			</h2>
+		</div>
 	<% }); %>
 
 	<form action="/flights/<%= flight.id %>/destinations" method="POST">
@@ -38,7 +48,7 @@
 		</label><br>
 		<button type="submit">add dest</button>
 	</form>
-	<form action="/flights/<%= flight.id %>/destinations?_method=DELETE" method="POST"></form>
+	
 	<p>
 		<%= errorMsg %>
 	</p>

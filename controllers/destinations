@@ -36,5 +36,19 @@ async function create(req, res) {
 }
 
 async function deleteDestination(req, res) {
-	
+	try {
+		const flightId = req.body.flightId;
+		const id = req.params.id;
+		const flight = await Flight.findById(flightId);
+		const dest = flight.destinations.id(id);
+		dest.deleteOne();
+		await flight.save();
+		res.redirect(`/flights/${id}/edit`);
+		// res.redirect(`/flights`);
+
+	} catch (err) {
+		res.render('error', {
+			error: err,
+			message: err.message,});
+	};
 }
