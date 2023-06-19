@@ -8,7 +8,18 @@ module.exports = {
 }
 
 async function index(req, res) {
-
+	try {
+		const id = req.params.id;
+		const flight = await Flight.findById(id);
+		console.log(flight.destinations);
+		res.render('flights/destinations/index', {
+			flight,
+		});
+	} catch (err) {
+		res.render('error', {
+			error: err,
+			message: err.message,});
+	};
 }
 
 async function create(req, res) {
