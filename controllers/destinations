@@ -43,7 +43,7 @@ async function deleteDestination(req, res) {
 		const dest = flight.destinations.id(id);
 		dest.deleteOne();
 		await flight.save();
-		res.redirect(`/flights/${id}/edit`);
+		res.redirect(`/flights/${flightId}/edit`);
 		// res.redirect(`/flights`);
 
 	} catch (err) {
